@@ -90,19 +90,20 @@ export default function AddAnimals() {
 
   const handleNextPage = () => {
     if (animalList.length) {
-      dispatch({
-        type: 'SAVE_ANIMALS',
-        year: state.nmpFile.farmDetails.year,
-        newAnimals: animalList,
-      });
-      if(hasDairyCattle){
-        setIsFeedbackOpen(true);
-      }
-      navigate(MANURE_IMPORTS);
+        dispatch({
+            type: 'SAVE_ANIMALS',
+            year: state.nmpFile.farmDetails.year,
+            newAnimals: animalList,
+        });
+        if (hasDairyCattle) {
+            setIsFeedbackOpen(true);
+        } else {
+            navigate(MANURE_IMPORTS);
+        }
     } else {
-      setShowViewError('You must add at least one animal before continuing.');
+        setShowViewError('You must add at least one animal before continuing.');
     }
-  };
+};
 
   const handlePreviousPage = () => {
     if (animalList.length) {
@@ -236,10 +237,11 @@ export default function AddAnimals() {
       <ErrorText>{showViewError}</ErrorText>
       
       {isFeedbackOpen && (
-      <FeedbackWidget
+    <FeedbackWidget
         formId={1}
-        apiUrl="http://host.docker.internal:3000"
-      />)}
+        apiUrl="http://localhost:3001"
+        onClose={() => navigate(MANURE_IMPORTS)}
+    />)}
       
     </View>
   );
