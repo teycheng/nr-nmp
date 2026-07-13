@@ -1,0 +1,39 @@
+{
+  "name": "@capslock/feedback-widget",
+  "version": "1.0.0",
+  "description": "Reusable feedback form widget for React apps",
+  "main": "./dist/feedback-widget.cgs.js",
+  "module": "./dist/feedback-widget.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/feedback-widget.es.js",
+      "require": "./dist/feedback-widget.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite build --watch"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+},
+  "dependencies": {
+    "@bcgov/bc-sans": "^2.1.0",
+    "@bcgov/design-system-react-components": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
