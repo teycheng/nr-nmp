@@ -19,6 +19,18 @@ Copy the `.tgz` file into the consuming app's root, then:
 npm install ./capslock-feedback-widget-1.0.0.tgz
 ```
 
+## Updating tgz in consuming app
+Copy the new `.tgz` file into the consuming app's root, then:
+
+```bash
+docker compose down
+cd frontend
+del package-lock.json
+cd ..
+docker compose build --no-cache
+docker compose up
+```
+
 ## Usage
 
 ```tsx
