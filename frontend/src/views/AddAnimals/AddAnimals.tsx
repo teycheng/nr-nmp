@@ -238,7 +238,7 @@ export default function AddAnimals() {
       
       {isFeedbackOpen && (
     <FeedbackWidget
-        formId={1}
+        formId={2}
         apiUrl="http://localhost:3001"
         onClose={() => navigate(MANURE_IMPORTS)}
     />)}
