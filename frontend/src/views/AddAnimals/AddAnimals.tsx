@@ -24,6 +24,7 @@ import { isDairyAndMilkingCattle, liquidSolidManureDisplay } from '@/utils/utils
 import { calculateAnnualWashWater } from './utils';
 import { APICacheContext } from '@/context/APICacheContext';
 import { DAIRY_COW_ID } from '@/constants';
+import { FeedbackWidget } from '@capslock/feedback-widget';
 
 export default function AddAnimals() {
   const { state, dispatch } = useAppState();
@@ -32,6 +33,7 @@ export default function AddAnimals() {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [showViewError, setShowViewError] = useState<string>('');
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -88,16 +90,20 @@ export default function AddAnimals() {
 
   const handleNextPage = () => {
     if (animalList.length) {
-      dispatch({
-        type: 'SAVE_ANIMALS',
-        year: state.nmpFile.farmDetails.year,
-        newAnimals: animalList,
-      });
-      navigate(MANURE_IMPORTS);
+        dispatch({
+            type: 'SAVE_ANIMALS',
+            year: state.nmpFile.farmDetails.year,
+            newAnimals: animalList,
+        });
+        if (hasDairyCattle) {
+            setIsFeedbackOpen(true);
+        } else {
+            navigate(MANURE_IMPORTS);
+        }
     } else {
-      setShowViewError('You must add at least one animal before continuing.');
+        setShowViewError('You must add at least one animal before continuing.');
     }
-  };
+};
 
   const handlePreviousPage = () => {
     if (animalList.length) {
@@ -229,6 +235,14 @@ export default function AddAnimals() {
         hideFooter
       />
       <ErrorText>{showViewError}</ErrorText>
+      
+      {isFeedbackOpen && (
+    <FeedbackWidget
+        formId={2}
+        apiUrl="http://localhost:3000"
+        onClose={() => navigate(MANURE_IMPORTS)}
+    />)}
+      
     </View>
   );
 }

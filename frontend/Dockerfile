@@ -7,6 +7,15 @@ WORKDIR /app/
 # Copy package.json and package-lock.json first to leverage Docker cache
 COPY package*.json ./
 
+# Copy the feedback widget package
+COPY capslock-feedback-widget-1.0.0.tgz ./
+
+# Remove lock file so it regenerates with correct checksum
+RUN rm -f package-lock.json
+
+# Install dependencies
+RUN npm install --ignore-scripts.json ./
+
 # Install dependencies
 RUN npm install --ignore-scripts
 

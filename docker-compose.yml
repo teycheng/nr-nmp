@@ -21,7 +21,7 @@ services:
     container_name: nr-nmp-db
     environment:
       <<: *postgres-vars
-    ports: [5432:5432]
+    ports: [5433:5432]
     healthcheck:
       test: ["CMD", "pg_isready", "-U", *POSTGRES_USER]
 
@@ -57,7 +57,7 @@ services:
       <<: *postgres-vars
     healthcheck:
      test: curl --fail http://localhost:3000 || exit 1
-    ports: ["3000:3000"]
+    ports: ["3001:3000"]
     volumes:
       - ./backend:/app
     # For debugging
@@ -79,10 +79,10 @@ services:
           target: /app
           ignore: [node_modules]
     environment:
-      VITE_BACKEND_URL: http://localhost:3000
+      VITE_BACKEND_URL: http://localhost:3001
     healthcheck:
-      test: curl --fail http://localhost:5173 || exit 1
-    ports: ["5173:5173"]
+      test: curl --fail http://localhost:5174 || exit 1
+    ports: ["5174:5173"]
     volumes: ["./frontend:/app", "/app/node_modules"]
 
   caddy:
